@@ -1,23 +1,22 @@
-package Resources;
+package models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name="folders")
+@Table(name = "files")
 
-public class Folder {
+public class File {
     private int id;
-    private String name;
+    private String fileName;
     private String extension;
+    private Folder folder;
     private int size;
-    private List<Folder> folders;
 
-    public Folder() {
+    public File() {
     }
 
-    public Folder(String name, String extension, int size) {
-        this.name = name;
+    public File(String fileName, String extension, int size, Folder folder) {
+        this.fileName = fileName;
         this.extension = extension;
         this.size = size;
     }
@@ -28,9 +27,9 @@ public class Folder {
     public int getId() {
         return id;
     }
-    @Column(name="name")
-    public String getName() {
-        return name;
+    @Column(name="file_name")
+    public String getFileName() {
+        return fileName;
     }
     @Column(name="extension")
     public String getExtension() {
@@ -40,17 +39,17 @@ public class Folder {
     public int getSize() {
         return size;
     }
-    @OneToMany(mappedBy="folder", fetch = FetchType.LAZY )
-    public List<Folder> getFolders() {
-        return folders;
+    @JoinColumn(name = "folder_id", nullable = false)
+    public Folder getFolder() {
+        return folder;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public void setExtension(String extension) {
@@ -61,7 +60,7 @@ public class Folder {
         this.size = size;
     }
 
-    public void setFolders(List<Folder> folders) {
-        this.folders = folders;
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 }
