@@ -21,6 +21,7 @@ public class Folder {
         this.extension = extension;
         this.size = size;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -39,7 +40,7 @@ public class Folder {
     public int getSize() {
         return size;
     }
-    @Column(name="folders")
+    @OneToMany(mappedBy="folder", fetch = FetchType.LAZY )
     public List<Folder> getFolders() {
         return folders;
     }
